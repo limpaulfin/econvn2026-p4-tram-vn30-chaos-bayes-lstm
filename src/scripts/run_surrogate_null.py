@@ -23,8 +23,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from python.src.chaos_indicators import chaos01_K, largest_lyapunov, permutation_entropy
-from python.src.surrogates import surrogate_null_test
+from src.python.chaos_indicators import chaos01_K, largest_lyapunov, permutation_entropy
+from src.python.surrogates import surrogate_null_test
 
 
 def load_returns(ticker: str, layer: str) -> np.ndarray:
