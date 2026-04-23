@@ -24,7 +24,8 @@ def fig1_chaos_concordance(chaos_df: pd.DataFrame, out: Path) -> None:
     ax.bar(x + 0.25, agg["K01"].values, 0.25, label="0-1 K-value", color=CUD["green"])
     ax.set_xticks(x); ax.set_xticklabels(agg.index, rotation=75, fontsize=8)
     ax.set_ylabel("Mean indicator"); ax.set_title("Per-ticker mean chaos indicators")
-    ax.legend(loc="upper left", fontsize=9)
+    ax.set_ylim(0, 1.15)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.28), ncol=3, fontsize=9, frameon=False)
     fig.tight_layout(); fig.savefig(out, bbox_inches="tight"); plt.close(fig)
     LOGGER.info("fig1 %s", out.name)
 
