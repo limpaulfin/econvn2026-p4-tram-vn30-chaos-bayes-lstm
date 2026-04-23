@@ -18,17 +18,23 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-from src.python.chaos_indicators import chaos01_K, largest_lyapunov, permutation_entropy
-from src.python.surrogates import surrogate_null_test
+REPO_ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(REPO_ROOT))
+
+from src.python.chaos_indicators import chaos01_K, largest_lyapunov, permutation_entropy  # noqa: E402
+from src.python.surrogates import surrogate_null_test  # noqa: E402
 
 
 def load_returns(ticker: str, layer: str) -> np.ndarray:
-    processed = Path("data/processed") / f"{ticker}_{layer}_processed.parquet"
+    paper_path = REPO_ROOT / "data" / "processed" / f"{ticker}_{layer}_processed.parquet"
+    public_path = REPO_ROOT / "data" / f"{ticker}_{layer}_processed.parquet"
+    processed = paper_path if paper_path.exists() else public_path
     df = pd.read_parquet(processed)
     col = "ret" if "ret" in df.columns else "log_return"
     return df[col].dropna().to_numpy()
